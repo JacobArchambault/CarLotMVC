@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using AutoLotDal.Models;
+using AutoLotDAL.EF;
+using AutoLotDAL.Repos;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using AutoLotDAL.EF;
-using AutoLotDal.Models;
 
 namespace CarLotMVC.Controllers
 {
     public class InventoryController : Controller
     {
         private AutoLotEntities db = new AutoLotEntities();
+        private readonly InventoryRepo _repo = new InventoryRepo();
 
         // GET: Inventory
         public ActionResult Index()
@@ -120,6 +119,7 @@ namespace CarLotMVC.Controllers
         {
             if (disposing)
             {
+                _repo.Dispose();
                 db.Dispose();
             }
             base.Dispose(disposing);
