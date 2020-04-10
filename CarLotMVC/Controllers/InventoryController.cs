@@ -1,6 +1,7 @@
 ﻿using AutoLotDal.Models;
 using AutoLotDAL.EF;
 using AutoLotDAL.Repos;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -48,14 +49,17 @@ namespace CarLotMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Make,Color,PetName")] Inventory inventory)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(inventory);
+            try
             {
-                db.Inventory.Add(inventory);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                _repo.Add(inventory);
             }
-
-            return View(inventory);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $@"Unable to create record: {ex.Message}");
+                return View(inventory);
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Inventory/Edit/5
