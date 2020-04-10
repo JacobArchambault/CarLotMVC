@@ -84,13 +84,22 @@ namespace CarLotMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Make,Color,PetName,TimeStamp")] Inventory inventory)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(inventory);
+            try
             {
-                db.Entry(inventory).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                _repo.Save(inventory);
             }
-            return View(inventory);
+            catch (DbUpdateConcurrencyException ex)
+            {
+                ModelState.AddModelError(string.Empty, $@"Unable to save the record. Another user has updated it. {ex.Message}");
+                return View(inventory);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $@"Unable to save the record. {ex.Message}");
+                return View(inventory);
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Inventory/Delete/5
