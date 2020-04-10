@@ -17,7 +17,7 @@ namespace CarLotMVC.Controllers
         // GET: Inventory
         public ActionResult Index()
         {
-            return View(db.Inventory.ToList());
+            return View(_repo.GetAll());
         }
 
         // GET: Inventory/Details/5
