@@ -46,7 +46,7 @@ namespace CarLotMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Make,Color,PetName,TimeStamp")] Inventory inventory)
+        public ActionResult Create([Bind(Include = "Make,Color,PetName")] Inventory inventory)
         {
             if (ModelState.IsValid)
             {
