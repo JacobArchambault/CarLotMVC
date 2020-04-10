@@ -27,7 +27,7 @@ namespace CarLotMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Inventory inventory = db.Inventory.Find(id);
+            Inventory inventory = _repo.GetOne(id);
             if (inventory == null)
             {
                 return HttpNotFound();
