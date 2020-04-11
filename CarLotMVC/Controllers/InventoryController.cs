@@ -1,4 +1,4 @@
-﻿using AutoLotDal.Models;
+﻿using AutoLotDAL.Models;
 using AutoLotDAL.EF;
 using AutoLotDAL.Repos;
 using System;
