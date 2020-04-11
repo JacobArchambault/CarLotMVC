@@ -35,19 +35,13 @@
             @Html.DisplayFor(model => model.PetName)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeStamp)
-        </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.TimeStamp)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger"})
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
